@@ -23,7 +23,7 @@ function parkCar(e) {
 	if (res.error) {
 		msgContainer.innerText = `Error: ${res.error}`;
 	} else {
-		msgContainer.innerText = res.message;
+		msgContainer.innerText = `Your car is parked at slot no: ${res.slotId}`;
 	}
 	listRecents();
 	listAll();
