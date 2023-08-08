@@ -37,27 +37,33 @@ class ParkingLot {
 	}
 
 	findCar(regNo) {
+		const pattern = /[A-Za-z]{2}[0-9]{8}/;
+		if (!pattern.exec(regNo)) return { error: "Invalid car registration number", status: 400 };
+		
 		const idx = this.occupiedSlots.findIndex((sl) => sl.regNo === regNo.toUpperCase());
 		if (idx >= 0) {
 			const slotId = this.occupiedSlots[idx].slotId;
 			this.emptySlot(idx);
-			return { idx, slotId };
-		} else return { idx: -1, slotId: -1 };
+			return { idx, slotId, status: 200 };
+		} else return { idx: -1, slotId: -1, status: 404 };
 	}
 
 	parkCar(regNo) {
+		const pattern = /[A-Za-z]{2}[0-9]{8}/;
+		if (!pattern.exec(regNo)) return { error: "Invalid car registration number", status: 400 };
+
 		const already = this.occupiedSlots.find((sl) => sl.regNo === regNo.toUpperCase());
-		if (already) return { error: "Car already parked!" };
+		if (already) return { error: "Car already parked!", status: 400 };
 
 		if (this.availableSlots.length === 0) {
-			return { error: "No slot available." };
+			return { error: "No slot available.", status: 404 };
 		}
 
 		const allotedSlot = this.availableSlots.pop();
 		this.occupiedSlots.push({ slotId: allotedSlot, regNo: regNo.toUpperCase() });
 
 		this.updateLocaStorage();
-		return { message: `Your car is parked at slot no: ${allotedSlot}` };
+		return { message: `Your car is parked at slot no: ${allotedSlot}`, status: 200 };
 	}
 
 	listAll() {
