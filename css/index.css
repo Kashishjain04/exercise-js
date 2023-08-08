@@ -1,0 +1,32 @@
+body {
+  background: url("../assets/bg.jpg");
+  background-size: cover;
+  background-color: slategray !important;
+  background-blend-mode: screen;
+}
+body * {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+body .left_nav {
+  height: 100vh;
+  flex: 0.3;
+  max-width: 250px;
+}
+body .left_nav p {
+  margin-bottom: 0;
+}
+body .component {
+  max-width: 500px;
+  margin: auto;
+  flex: 1;
+}
+body .component h3.status {
+  height: 2rem;
+}
+body .component th, body .component tr {
+  text-align: center;
+}
+
+/*# sourceMappingURL=index.css.map */

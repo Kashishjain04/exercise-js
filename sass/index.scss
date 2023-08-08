@@ -1,0 +1,35 @@
+body {
+	* {
+		padding: 0;
+		margin: 0;
+		box-sizing: border-box;
+	}
+
+	background: url("../assets/bg.jpg");
+	background-size: cover;
+	background-color: slategray !important;
+	background-blend-mode: screen;
+
+	.left_nav {
+		height: 100vh;
+		flex: 0.3;
+		max-width: 250px;
+		p {
+			margin-bottom: 0;
+		}
+	}
+
+	.component {
+		max-width: 500px;
+		margin: auto;
+		flex: 1;
+
+		h3.status {
+			height: 2rem;
+		}
+
+    th, tr {
+      text-align: center;
+    }
+	}
+}
