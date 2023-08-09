@@ -4,10 +4,8 @@ function executePattern(pattern, string){
 }
 
 function regNoVaildator(regNo) {
-	let pattern = /[A-Za-z]{2}[0-9]{8}/;
-	if (executePattern(pattern, regNo)) return { success: true };
 	// length -> 10
-	pattern = /^.{10}$/;
+	let pattern = /^.{10}$/;
 	if(!executePattern(pattern, regNo)) return {error: "Length must be exactly 10 characters"};
 	// no spaces permitted
 	pattern = /.* .*/
@@ -16,11 +14,14 @@ function regNoVaildator(regNo) {
 	pattern = /[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/
 	if(executePattern(pattern, regNo)) return {error: "No special characters permitted"};
 	// first 2 chars -> alphabets
-	pattern = /[A-Za-z]{2}.{8}/
+	pattern = /^[A-Za-z]{2}.{8}&/
 	if(!executePattern(pattern, regNo)) return {error: "First two spaces must me alphabet"};
 	// no alphabet allowed in list 8 spaces
 	pattern = /[A-Za-z]{2}([0-9]*[A-Za-z]+[0-9]*)/
 	if(executePattern(pattern, regNo)) return {error: "Last 8 characters can not have alphabet"};
+	// success
+	pattern = /^[A-Za-z]{2}[0-9]{8}&/;
+	if (executePattern(pattern, regNo)) return { success: true };
 	else return {error: "Pattern mismatch"}
 }
 
