@@ -14,13 +14,13 @@ function regNoVaildator(regNo) {
 	pattern = /[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/
 	if(executePattern(pattern, regNo)) return {error: "No special characters permitted"};
 	// first 2 chars -> alphabets
-	pattern = /^[A-Za-z]{2}.{8}&/
+	pattern = /^[A-Za-z]{2}.{8}$/
 	if(!executePattern(pattern, regNo)) return {error: "First two spaces must me alphabet"};
 	// no alphabet allowed in list 8 spaces
 	pattern = /[A-Za-z]{2}([0-9]*[A-Za-z]+[0-9]*)/
 	if(executePattern(pattern, regNo)) return {error: "Last 8 characters can not have alphabet"};
 	// success
-	pattern = /^[A-Za-z]{2}[0-9]{8}&/;
+	pattern = /^([A-Za-z]{2}[0-9]{8})$/;
 	if (executePattern(pattern, regNo)) return { success: true };
 	else return {error: "Pattern mismatch"}
 }
