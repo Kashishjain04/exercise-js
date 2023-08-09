@@ -1,5 +1,5 @@
 import ParkingLot from "./ParkingLot.js";
-import { activatePage, listAll, listRecents, parkCar, pickupCar } from "./handlers.js";
+import { activatePage, listResults, parkingHandler } from "./handlers.js";
 
 const parkingLot = new ParkingLot();
 
@@ -8,11 +8,11 @@ window.onload = () => {
 	for (let i = 0; i < allBtns.length; i++)
 		allBtns[i].addEventListener("click", () => activatePage(allBtns[i]));
 
-	document.getElementById("park_form")?.addEventListener("submit", parkCar);
-	document.getElementById("pickup_form")?.addEventListener("submit", pickupCar);
-
-	listRecents();
-	listAll();
+	document.getElementById("park_form")?.addEventListener("submit", (event) => parkingHandler(event, "park"));
+	document.getElementById("pickup_form")?.addEventListener("submit", (event) => parkingHandler(event, "pickup"));
+	
+	document.getElementById("recent_btn")?.addEventListener("click", () => listResults("recents"));
+	document.getElementById("all_btn")?.addEventListener("click", () => listResults("all"));
 };
 
 export { parkingLot };

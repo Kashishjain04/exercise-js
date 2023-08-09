@@ -37,9 +37,6 @@ class ParkingLot {
 	}
 
 	findCar(regNo) {
-		const pattern = /[A-Za-z]{2}[0-9]{8}/;
-		if (!pattern.exec(regNo)) return { error: "Invalid car registration number" };
-
 		const idx = this.occupiedSlots.findIndex((sl) => sl.regNo === regNo.toUpperCase());
 		if (idx >= 0) {
 			const slotId = this.occupiedSlots[idx].slotId;
@@ -49,9 +46,6 @@ class ParkingLot {
 	}
 
 	parkCar(regNo) {
-		const pattern = /[A-Za-z]{2}[0-9]{8}/;
-		if (!pattern.exec(regNo)) return { error: "Invalid car registration number" };
-
 		const already = this.occupiedSlots.find((sl) => sl.regNo === regNo.toUpperCase());
 		if (already) return { error: "Car already parked!" };
 
@@ -60,18 +54,18 @@ class ParkingLot {
 		}
 
 		const allotedSlot = this.availableSlots.pop();
-		this.occupiedSlots.push({ slotId: allotedSlot, regNo: regNo.toUpperCase() });
+		this.occupiedSlots.push({ slotId: allotedSlot, regNo: regNo.toUpperCase(), parkedOn: Date.now() });
 
 		this.updateLocaStorage();
 		return { slotId: allotedSlot };
 	}
 
 	listAll() {
-		return this.occupiedSlots.sort((a, b) => a.slotId - b.slotId);
+		return this.occupiedSlots.sort((a, b) => a.parkedOn - b.parkedOn);
 	}
 
 	listRecent() {
-		return this.occupiedSlots.slice(-3).reverse();
+		return this.occupiedSlots.sort((a, b) => b.parkedOn - a.parkedOn).slice(0,3);
 	}
 
 	reset() {

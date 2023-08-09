@@ -12,7 +12,7 @@ class Recent extends HTMLElement {
             <th scope="col">Registration No.</th>
           </tr>
         </thead>
-        <tbody id="recent_body">
+        <tbody id="recents_body">
         </tbody>
       </table>
     </main>
