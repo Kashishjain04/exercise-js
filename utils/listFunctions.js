@@ -1,8 +1,7 @@
-import { parkingLot } from "./index.js";
+import { parkingLot } from "../js/index.js";
 
 function listRecents() {
 	const recents = parkingLot.listRecent();
-	console.log(recents);
 	if (recents.length === 0) {
 		return { error: "No cars parked recently." };
 	}

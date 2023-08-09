@@ -1,4 +1,4 @@
-import { parkingLot } from "./index.js";
+import { parkingLot } from "../js/index.js";
 
 function parkCar(regNo) {
 	const res = parkingLot.parkCar(regNo);
