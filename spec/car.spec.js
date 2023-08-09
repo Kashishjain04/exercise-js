@@ -1,31 +1,40 @@
 import { parkingLot } from "./config.js";
+import regNoVaildator from "../utils/regNoValidator.js";
 
 describe("Registration Number", () => {
 	beforeEach(() => parkingLot.reset());
 
 	const tester = {
-		asymmetricMatch: function (value) {
-			return value.slotId !== null && value.slotId !== undefined;
+		asymmetricMatch: function (value, requiredError) {
+			return value.error === requiredError;
 		},
 	};
 
-	it("should have 2 alphabets followed by 8 digits", () => {
-		expect(parkingLot.parkCar("XX11111111")).toEqual(tester);
+	describe("to be valid", () => {
+		it("should have 2 alphabets followed by 8 digits", () => {
+			expect(regNoVaildator("XX11111111")).toEqual({ success: true });
+		});
 	});
 
-	it("should not be more or less than 10 characters long", () => {
-		expect(parkingLot.parkCar("AB1234")).not.toEqual(tester);
-	});
+	describe("to be invalid", () => {
+		it("should be less or more than 10 characters long", () => {
+			expect(regNoVaildator("AB1234")).toEqual({ error: "Length must be exactly 10 characters" });
+		});
 
-	it("should not have anything other than alphabet at first 2 places", () => {
-		expect(parkingLot.parkCar("4#11111111")).not.toEqual(tester);
-	});
+		it("should contain spaces", () => {
+			expect(regNoVaildator("AB 123 456")).toEqual({error: "Spaces are not permitted"});
+		})
 
-	it("should not have any special characters", () => {
-		expect(parkingLot.parkCar("AB127#@149")).not.toEqual(tester);
-	});
+		it("should have some special characters", () => {
+			expect(regNoVaildator("AB127#@149")).toEqual({error: "No special characters permitted"});
+		});
 
-	it("should not have any spaces", () => {
-		expect(parkingLot.parkCar("AB 127 1149")).not.toEqual(tester);
+		it("should have anything other than alphabet at first 2 places", () => {
+			expect(regNoVaildator("4B11111111")).toEqual({error: "First two spaces must me alphabet"});
+		});
+
+		it("should have alphabet in last 8 spaces", () => {
+			expect(regNoVaildator("AB123ab123")).toEqual({error: "Last 8 characters can not have alphabet"});
+		});
 	});
 });
